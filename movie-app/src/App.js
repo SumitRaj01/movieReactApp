@@ -4,10 +4,11 @@ import "./App.css";
 import MovieList from "./components/MovieList";
 import MovieListHeading from "./components/MovieListHeading";
 import SearchBox from "./components/SearchBox";
+import AddFavourites from "./components/AddFavourites";
 function App() {
   //add a state object which is going to hold the movie result that come back from the search
   const [movies, setMovies] = useState([]);
-
+  const [favourites, setFavourites] = useState([]);
   //movie parameter is going to be dynamic so to make search dynamic we will add an input , store the value and state the user types and call the API everytime that input changes
   const [searchValue, setSearchValue] = useState("");
 
@@ -30,6 +31,11 @@ function App() {
     getMovieRequest(searchValue);
   }, [searchValue]); //[] means getMovieRequest is called when page loads only
 
+  const addFavouriteMovie = (movie) => {
+    const newFavouriteList = [...favourites, movie];
+    setFavourites(newFavouriteList);
+  };
+
   return (
     <div className="container-fluid movie-app">
       <div className="row d-flex align-items-center mt-4 mb-4">
@@ -40,7 +46,21 @@ function App() {
         <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
       </div>
       <div className="row">
-        <MovieList movies={movies} />
+        <MovieList
+          movies={movies}
+          handleFavouritesClick={addFavouriteMovie}
+          favouriteComponent={AddFavourites}
+        />
+      </div>
+      <div className="row d-flex align-items-center mt-4 mb-4">
+        <MovieListHeading heading="Favourites" />
+      </div>
+      <div className="row">
+        <MovieList
+          movies={favourites}
+          handleFavouritesClick={addFavouriteMovie}
+          favouriteComponent={AddFavourites}
+        />
       </div>
     </div>
   );
