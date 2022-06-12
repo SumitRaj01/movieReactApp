@@ -14,7 +14,7 @@ function App() {
 
   //Adding a call to the API so that you can get the films from the API
   const getMovieRequest = async (searchValue) => {
-    const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=1450179`;
+    const url = `https://www.omdbapi.com/?s=${searchValue}&apikey=1450179`;
 
     //using fetch API to make a request
     const response = await fetch(url);
